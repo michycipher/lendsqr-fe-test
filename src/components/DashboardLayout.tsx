@@ -1,9 +1,24 @@
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { logout, getCurrentUser } from "../services/auth";
-import { GoBell, GoSearch } from "react-icons/go";
+import { 
+  GoBell, 
+  GoSearch, 
+  GoChevronDown 
+} from "react-icons/go";
+import { 
+  FiUsers, 
+  FiShield, 
+  FiDollarSign, 
+  FiBarChart, 
+  FiCreditCard, 
+  FiFileText,
+  FiStar,
+  FiSettings,
+  FiLogOut,
+  FiMenu 
+} from "react-icons/fi";
 import "../styles/Dashboard.scss";
-import { FiMenu } from "react-icons/fi";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -20,7 +35,16 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     navigate("/");
   };
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => 
+    location.pathname === path || location.pathname.includes(path);
+
+  // Close sidebar on route change
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setSidebarOpen(false);
+    };
+    handleRouteChange();
+  }, [location.pathname]);
 
   return (
     <div className="dashboard-layout">
@@ -31,9 +55,12 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               <img src="/logo.svg" alt="Lendsqr" />
             </div>
             <div className="header__search">
-              <input type="text" placeholder="Search for anything" />
-              <button aria-label="Search" className="text-white">
-                <GoSearch style={{ color: "white" }} />
+              <input 
+                type="text" 
+                placeholder="Search for anything" 
+              />
+              <button aria-label="Search">
+                <GoSearch />
               </button>
             </div>
           </div>
@@ -43,31 +70,48 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             </a>
             <div className="header__notification">
               <GoBell />
+              <span className="notification-badge">3</span>
             </div>
             <div className="header__user">
               <img src="/user-avatar.svg" alt={user?.name || "User"} />
               <span>{user?.name || "Adedeji"}</span>
+              <GoChevronDown />
             </div>
-            <button aria-label="Toggle menu"
+            <button 
+              aria-label="Toggle menu"
               className="header__mobile-menu"
               onClick={() => setSidebarOpen(!sidebarOpen)}
             >
-            <FiMenu />
+              <FiMenu />
             </button>
           </div>
         </div>
       </header>
 
+      {/* Mobile overlay */}
+      <div 
+        className={`sidebar-overlay ${sidebarOpen ? "open" : ""}`}
+        onClick={() => setSidebarOpen(false)}
+      />
+
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="sidebar__content">
           <div className="sidebar__switch">
+            <FiSettings />
             <span>Switch Organization</span>
+            <GoChevronDown />
           </div>
 
           <nav className="sidebar__nav">
             <div className="sidebar__section">
               <div className="sidebar__item">
-                <Link to="/dashboard">Dashboard</Link>
+                <Link 
+                  to="/dashboard" 
+                  className={isActive("/dashboard") ? "active" : ""}
+                >
+                  <FiBarChart />
+                  Dashboard
+                </Link>
               </div>
             </div>
 
@@ -76,36 +120,53 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               <div className="sidebar__item">
                 <Link
                   to="/dashboard/users"
-                  className={
-                    isActive("/dashboard/users") ||
-                    location.pathname.includes("/dashboard/users/")
-                      ? "active"
-                      : ""
-                  }
+                  className={isActive("/dashboard/users") ? "active" : ""}
                 >
+                  <FiUsers />
                   Users
                 </Link>
               </div>
               <div className="sidebar__item">
-                <a href="#">Guarantors</a>
+                <Link to="/dashboard" className={isActive("/dashboard/guarantors") ? "active" : ""}>
+                  <FiShield />
+                  Guarantors
+                </Link>
               </div>
               <div className="sidebar__item">
-                <a href="#">Loans</a>
+                <Link to="/dashboard" className={isActive("/dashboard/loans") ? "active" : ""}>
+                  <FiDollarSign />
+                  Loans
+                </Link>
               </div>
               <div className="sidebar__item">
-                <a href="#">Decision Models</a>
+                <Link to="/dashboard" className={isActive("/dashboard/decision-models") ? "active" : ""}>
+                  <FiBarChart />
+                  Decision Models
+                </Link>
               </div>
               <div className="sidebar__item">
-                <a href="#">Savings</a>
+                <Link to="/dashboard" className={isActive("/dashboard/savings") ? "active" : ""}>
+                  <FiCreditCard />
+                  Savings
+                </Link>
               </div>
               <div className="sidebar__item">
-                <a href="#">Loan Requests</a>
+                <Link to="/dashboard" className={isActive("/dashboard/loan-requests") ? "active" : ""}>
+                  <FiFileText />
+                  Loan Requests
+                </Link>
               </div>
               <div className="sidebar__item">
-                <a href="#">Whitelist</a>
+                <Link to="/dashboard" className={isActive("/dashboard/whitelist") ? "active" : ""}>
+                  <FiStar />
+                  Whitelist
+                </Link>
               </div>
               <div className="sidebar__item">
-                <a href="#">Karma</a>
+                <Link to="/dashboard" className={isActive("/dashboard/karma") ? "active" : ""}>
+                  <FiStar />
+                  Karma
+                </Link>
               </div>
             </div>
 
@@ -114,10 +175,16 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             <div className="sidebar__section">
               <div className="sidebar__section-title">Settings</div>
               <div className="sidebar__item">
-                <a href="#">Preferences</a>
+                <Link to="/dashboard" className={isActive("/dashboard/preferences") ? "active" : ""}>
+                  <FiSettings />
+                  Preferences
+                </Link>
               </div>
               <div className="sidebar__item">
-                <button onClick={handleLogout}>Logout</button>
+                <button onClick={handleLogout}>
+                  <FiLogOut />
+                  Logout
+                </button>
               </div>
             </div>
           </nav>

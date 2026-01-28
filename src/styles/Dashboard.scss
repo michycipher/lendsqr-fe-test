@@ -11,13 +11,13 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 100px;
+  height: 80px; 
   background: $white;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.04);
   z-index: 100;
   
-  @include respond-to(tablet) {
-    height: 80px;
+  @include respond-to(mobile) {
+    height: 70px;
   }
   
   &__content {
@@ -25,52 +25,58 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 30px;
+    padding: 0 24px;
     
     @include respond-to(tablet) {
       padding: 0 20px;
+    }
+    
+    @include respond-to(mobile) {
+      padding: 0 16px;
     }
   }
   
   &__left {
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 150px;
     
     @include respond-to(tablet) {
-      gap: 20px;
+      gap: 16px;
     }
   }
   
   &__logo {
     img {
-      width: 144px;
+      width: 120px;
       height: auto;
       
       @include respond-to(tablet) {
-        width: 120px;
+        width: 100px;
+      }
+      
+      @include respond-to(mobile) {
+        width: 90px;
       }
     }
   }
   
   &__search {
     position: relative;
+    flex: 1;
+    max-width: 320px;
     
     @include respond-to(tablet) {
       display: none;
     }
     
     input {
-      width: 400px;
+      width: 100%;
       height: 40px;
-      padding: 0 16px 0 40px;
+      padding: 0 36px 0 10px;
       border: 1px solid rgba(84, 95, 125, 0.14);
       border-radius: 8px;
       font-size: 14px;
-      
-      @include respond-to(desktop) {
-        width: 300px;
-      }
       
       &::placeholder {
         color: rgba(84, 95, 125, 0.6);
@@ -98,15 +104,15 @@
   &__right {
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 24px; 
     
     @include respond-to(tablet) {
-      gap: 20px;
+      gap: 16px;
     }
   }
   
   &__docs {
-    font-size: 16px;
+    font-size: 14px; 
     color: $text-light;
     text-decoration: underline;
     
@@ -120,8 +126,8 @@
     cursor: pointer;
     
     svg {
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
     }
   }
   
@@ -132,19 +138,19 @@
     cursor: pointer;
     
     img {
-      width: 48px;
-      height: 48px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
       
       @include respond-to(tablet) {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
       }
     }
     
     span {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 500;
       color: $text-light;
       
@@ -181,17 +187,25 @@
 .sidebar {
   position: fixed;
   left: 0;
-  top: 100px;
+  top: 80px;
   bottom: 0;
-  width: 283px;
+  width: 260px; 
   background: $white;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.04);
   overflow-y: auto;
   z-index: 90;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease;
+  /* Hide scrollbar */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
   
   @include respond-to(tablet) {
-    top: 80px;
+    top: 70px;
+    width: 280px;
     transform: translateX(-100%);
     
     &.open {
@@ -200,10 +214,10 @@
   }
   
   &__content {
-    padding: 50px 30px;
+    padding: 32px 20px; 
     
     @include respond-to(tablet) {
-      padding: 30px 20px;
+      padding: 24px 20px;
     }
   }
   
@@ -211,7 +225,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 32px;
     cursor: pointer;
     
     svg {
@@ -220,7 +234,7 @@
     }
     
     span {
-      font-size: 16px;
+      font-size: 14px;
       color: $text-light;
     }
   }
@@ -230,7 +244,7 @@
   }
   
   &__section {
-    margin-bottom: 40px;
+    margin-bottom: 32px; 
   }
   
   &__section-title {
@@ -239,27 +253,31 @@
     color: $text-light;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin-bottom: 20px;
-    padding-left: 30px;
+    margin-bottom: 16px; 
+    padding-left: 20px; 
   }
   
   &__item {
-    margin-bottom: 10px;
+    margin-bottom: 4px; 
     
-    a {
+    a, button {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 30px;
+      padding: 10px 16px;
       color: $text-light;
-      font-size: 16px;
+      font-size: 14px; 
       transition: all 0.3s;
       border-left: 3px solid transparent;
+      width: 100%;
+      text-decoration: none;
+      border-radius: 6px;
       
       &:hover,
       &.active {
         background: rgba(57, 205, 204, 0.06);
         border-left-color: $primary-color;
+        color: $primary-color;
         
         svg {
           stroke: $primary-color;
@@ -271,6 +289,7 @@
         width: 16px;
         height: 16px;
         transition: all 0.3s;
+        flex-shrink: 0;
       }
     }
   }
@@ -278,23 +297,48 @@
   &__divider {
     height: 1px;
     background: rgba(84, 95, 125, 0.1);
-    margin: 30px 0;
+    margin: 24px 0; 
   }
 }
 
 .main-content {
-  margin-left: 283px;
-  margin-top: 100px;
+  margin-left: 260px; 
+  margin-top: 80px; 
   flex: 1;
-  padding: 60px 60px 120px;
+  padding: 40px 32px 80px; 
   
-  @include respond-to(desktop) {
-    padding: 40px 40px 100px;
+  @include respond-to(laptop) {
+    padding: 32px 24px 60px;
   }
   
   @include respond-to(tablet) {
     margin-left: 0;
-    margin-top: 80px;
-    padding: 30px 20px 80px;
+    margin-top: 70px;
+    padding: 24px 20px 60px;
+  }
+  
+  @include respond-to(mobile) {
+    padding: 20px 16px 40px;
+  }
+}
+
+// Mobile overlay for sidebar
+@media (max-width: 1024px) {
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 89;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    
+    &.open {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }

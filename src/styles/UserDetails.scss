@@ -274,7 +274,7 @@
     }
     
     @include respond-to(mobile) {
-      grid-template-columns: 1fr;
+      // grid-template-columns: 1fr;
     }
   }
   

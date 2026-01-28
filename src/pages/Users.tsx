@@ -19,9 +19,8 @@ const Users = () => {
     email: '',
     phoneNumber: '',
     status: '',
-    date: ''
+    date: '',
   });
-  // const navigate = useNavigate();
 
   useEffect(() => {
     loadData();
@@ -36,7 +35,7 @@ const Users = () => {
     try {
       const [usersData, statsData] = await Promise.all([
         getUsers(),
-        getDashboardStats()
+        getDashboardStats(),
       ]);
       setUsers(usersData);
       setFilteredUsers(usersData);
@@ -52,37 +51,40 @@ const Users = () => {
     let filtered = [...users];
 
     if (filters.organization) {
-      filtered = filtered.filter(user =>
-        user.organization.toLowerCase().includes(filters.organization.toLowerCase())
+      filtered = filtered.filter((user) =>
+        user.organization
+          .toLowerCase()
+          .includes(filters.organization.toLowerCase())
       );
     }
 
     if (filters.username) {
-      filtered = filtered.filter(user =>
+      filtered = filtered.filter((user) =>
         user.username.toLowerCase().includes(filters.username.toLowerCase())
       );
     }
 
     if (filters.email) {
-      filtered = filtered.filter(user =>
+      filtered = filtered.filter((user) =>
         user.email.toLowerCase().includes(filters.email.toLowerCase())
       );
     }
 
     if (filters.phoneNumber) {
-      filtered = filtered.filter(user =>
+      filtered = filtered.filter((user) =>
         user.phoneNumber.includes(filters.phoneNumber)
       );
     }
 
     if (filters.status) {
-      filtered = filtered.filter(user =>
-        user.status.toLowerCase() === filters.status.toLowerCase()
+      filtered = filtered.filter(
+        (user) =>
+          user.status.toLowerCase() === filters.status.toLowerCase()
       );
     }
 
     if (filters.date) {
-      filtered = filtered.filter(user =>
+      filtered = filtered.filter((user) =>
         user.dateJoined.startsWith(filters.date)
       );
     }
@@ -98,7 +100,7 @@ const Users = () => {
       email: '',
       phoneNumber: '',
       status: '',
-      date: ''
+      date: '',
     });
     setFilterOpen(null);
   };
@@ -118,7 +120,7 @@ const Users = () => {
       year: 'numeric',
       hour: 'numeric',
       minute: '2-digit',
-      hour12: true
+      hour12: true,
     });
   };
 
@@ -126,15 +128,13 @@ const Users = () => {
     setFilterOpen(filterOpen === column ? null : column);
   };
 
-  // const handleRowClick = (userId: string) => {
-  //   navigate(`/dashboard/users/${userId}`);
-  // };
-
-  // dropdown will close when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (!target.closest('.users-table__header-cell') && !target.closest('.filter-dropdown')) {
+      if (
+        !target.closest('.users-table__header-cell') &&
+        !target.closest('.filter-dropdown')
+      ) {
         setFilterOpen(null);
       }
       if (!target.closest('.users-table__actions')) {
@@ -163,62 +163,130 @@ const Users = () => {
         <div className="stat-card">
           <div className="stat-card__icon stat-card__icon--users">
             <svg viewBox="0 0 40 40" fill="none">
-              <path d="M14 18C17.3137 18 20 15.3137 20 12C20 8.68629 17.3137 6 14 6C10.6863 6 8 8.68629 8 12C8 15.3137 10.6863 18 14 18Z" stroke="#DF18FF" strokeWidth="2" />
-              <path d="M2 34C2 28.4772 6.47715 24 12 24H16C21.5228 24 26 28.4772 26 34V36H2V34Z" stroke="#DF18FF" strokeWidth="2" />
-              <path d="M28 18C30.7614 18 33 15.7614 33 13C33 10.2386 30.7614 8 28 8" stroke="#DF18FF" strokeWidth="2" strokeLinecap="round" />
-              <path d="M34 36V34C34 30.134 31.2091 26.9174 27.5 26.17" stroke="#DF18FF" strokeWidth="2" strokeLinecap="round" />
+              <path
+                d="M14 18C17.3137 18 20 15.3137 20 12C20 8.68629 17.3137 6 14 6C10.6863 6 8 8.68629 8 12C8 15.3137 10.6863 18 14 18Z"
+                stroke="#DF18FF"
+                strokeWidth="2"
+              />
+              <path
+                d="M2 34C2 28.4772 6.47715 24 12 24H16C21.5228 24 26 28.4772 26 34V36H2V34Z"
+                stroke="#DF18FF"
+                strokeWidth="2"
+              />
+              <path
+                d="M28 18C30.7614 18 33 15.7614 33 13C33 10.2386 30.7614 8 28 8"
+                stroke="#DF18FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <path
+                d="M34 36V34C34 30.134 31.2091 26.9174 27.5 26.17"
+                stroke="#DF18FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
             </svg>
           </div>
           <div className="stat-card__label">Users</div>
-          <div className="stat-card__value">{stats?.totalUsers.toLocaleString()}</div>
+          <div className="stat-card__value">
+            {stats?.totalUsers.toLocaleString()}
+          </div>
         </div>
+
         <div className="stat-card">
           <div className="stat-card__icon stat-card__icon--active">
             <svg viewBox="0 0 40 40" fill="none">
-              <path d="M20 20C23.3137 20 26 17.3137 26 14C26 10.6863 23.3137 8 20 8C16.6863 8 14 10.6863 14 14C14 17.3137 16.6863 20 20 20Z" stroke="#5718FF" strokeWidth="2" />
-              <path d="M10 32C10 27.5817 13.5817 24 18 24H22C26.4183 24 30 27.5817 30 32V34H10V32Z" stroke="#5718FF" strokeWidth="2" />
+              <path
+                d="M20 20C23.3137 20 26 17.3137 26 14C26 10.6863 23.3137 8 20 8C16.6863 8 14 10.6863 14 14C14 17.3137 16.6863 20 20 20Z"
+                stroke="#5718FF"
+                strokeWidth="2"
+              />
+              <path
+                d="M10 32C10 27.5817 13.5817 24 18 24H22C26.4183 24 30 27.5817 30 32V34H10V32Z"
+                stroke="#5718FF"
+                strokeWidth="2"
+              />
             </svg>
           </div>
           <div className="stat-card__label">Active Users</div>
-          <div className="stat-card__value">{stats?.activeUsers.toLocaleString()}</div>
+          <div className="stat-card__value">
+            {stats?.activeUsers.toLocaleString()}
+          </div>
         </div>
+
         <div className="stat-card">
           <div className="stat-card__icon stat-card__icon--loans">
             <svg viewBox="0 0 40 40" fill="none">
-              <path d="M8 16H32M8 16V30C8 31.1046 8.89543 32 10 32H30C31.1046 32 32 31.1046 32 30V16M8 16L11.5 8H28.5L32 16M16 22V26M24 22V26" stroke="#F55F44" strokeWidth="2" strokeLinecap="round" />
+              <path
+                d="M8 16H32M8 16V30C8 31.1046 8.89543 32 10 32H30C31.1046 32 32 31.1046 32 30V16M8 16L11.5 8H28.5L32 16M16 22V26M24 22V26"
+                stroke="#F55F44"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
             </svg>
           </div>
           <div className="stat-card__label">Users with Loans</div>
-          <div className="stat-card__value">{stats?.usersWithLoans.toLocaleString()}</div>
+          <div className="stat-card__value">
+            {stats?.usersWithLoans.toLocaleString()}
+          </div>
         </div>
+
         <div className="stat-card">
           <div className="stat-card__icon stat-card__icon--savings">
             <svg viewBox="0 0 40 40" fill="none">
-              <path d="M20 10C14.4772 10 10 14.4772 10 20C10 25.5228 14.4772 30 20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10Z" stroke="#FF3366" strokeWidth="2" />
-              <path d="M20 14V20L24 24" stroke="#FF3366" strokeWidth="2" strokeLinecap="round" />
+              <path
+                d="M20 10C14.4772 10 10 14.4772 10 20C10 25.5228 14.4772 30 20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10Z"
+                stroke="#FF3366"
+                strokeWidth="2"
+              />
+              <path
+                d="M20 14V20L24 24"
+                stroke="#FF3366"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
             </svg>
           </div>
           <div className="stat-card__label">Users with Savings</div>
-          <div className="stat-card__value">{stats?.usersWithSavings.toLocaleString()}</div>
+          <div className="stat-card__value">
+            {stats?.usersWithSavings.toLocaleString()}
+          </div>
         </div>
       </div>
 
       <div className="users-table">
         <div className="users-table__wrapper">
           <div className="users-table__header">
-            <div className="users-table__header-cell" onClick={() => handleFilterClick('organization')}>
+            <div
+              className="users-table__header-cell"
+              onClick={() => handleFilterClick('organization')}
+            >
               <span>Organization</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" />
+                <path
+                  d="M4 6L8 10L12 6"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
               </svg>
               {filterOpen === 'organization' && (
-                <div className="filter-dropdown" onClick={(e) => e.stopPropagation()}>
+                <div
+                  className="filter-dropdown"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div className="filter-dropdown__group">
-                    <label className="filter-dropdown__label">Organization</label>
+                    <label className="filter-dropdown__label">
+                      Organization
+                    </label>
                     <select
                       className="filter-dropdown__select"
                       value={filters.organization}
-                      onChange={(e) => setFilters({ ...filters, organization: e.target.value })}
+                      onChange={(e) =>
+                        setFilters({
+                          ...filters,
+                          organization: e.target.value,
+                        })
+                      }
                       title="Organization filter"
                     >
                       <option value="">Select</option>
@@ -228,20 +296,40 @@ const Users = () => {
                     </select>
                   </div>
                   <div className="filter-dropdown__actions">
-                    <button className="filter-dropdown__reset" onClick={resetFilters}>Reset</button>
-                    <button className="filter-dropdown__filter" onClick={() => setFilterOpen(null)}>Filter</button>
+                    <button
+                      className="filter-dropdown__reset"
+                      onClick={resetFilters}
+                    >
+                      Reset
+                    </button>
+                    <button
+                      className="filter-dropdown__filter"
+                      onClick={() => setFilterOpen(null)}
+                    >
+                      Filter
+                    </button>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="users-table__header-cell" onClick={() => handleFilterClick('username')}>
+            <div
+              className="users-table__header-cell"
+              onClick={() => handleFilterClick('username')}
+            >
               <span>Username</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" />
+                <path
+                  d="M4 6L8 10L12 6"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
               </svg>
               {filterOpen === 'username' && (
-                <div className="filter-dropdown" onClick={(e) => e.stopPropagation()}>
+                <div
+                  className="filter-dropdown"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div className="filter-dropdown__group">
                     <label className="filter-dropdown__label">Username</label>
                     <input
@@ -249,24 +337,46 @@ const Users = () => {
                       type="text"
                       placeholder="User"
                       value={filters.username}
-                      onChange={(e) => setFilters({ ...filters, username: e.target.value })}
+                      onChange={(e) =>
+                        setFilters({ ...filters, username: e.target.value })
+                      }
                     />
                   </div>
                   <div className="filter-dropdown__actions">
-                    <button className="filter-dropdown__reset" onClick={resetFilters}>Reset</button>
-                    <button className="filter-dropdown__filter" onClick={() => setFilterOpen(null)}>Filter</button>
+                    <button
+                      className="filter-dropdown__reset"
+                      onClick={resetFilters}
+                    >
+                      Reset
+                    </button>
+                    <button
+                      className="filter-dropdown__filter"
+                      onClick={() => setFilterOpen(null)}
+                    >
+                      Filter
+                    </button>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="users-table__header-cell" onClick={() => handleFilterClick('email')}>
+            <div
+              className="users-table__header-cell"
+              onClick={() => handleFilterClick('email')}
+            >
               <span>Email</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" />
+                <path
+                  d="M4 6L8 10L12 6"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
               </svg>
               {filterOpen === 'email' && (
-                <div className="filter-dropdown" onClick={(e) => e.stopPropagation()}>
+                <div
+                  className="filter-dropdown"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div className="filter-dropdown__group">
                     <label className="filter-dropdown__label">Email</label>
                     <input
@@ -274,80 +384,153 @@ const Users = () => {
                       type="email"
                       placeholder="Email"
                       value={filters.email}
-                      onChange={(e) => setFilters({ ...filters, email: e.target.value })}
+                      onChange={(e) =>
+                        setFilters({ ...filters, email: e.target.value })
+                      }
                     />
                   </div>
                   <div className="filter-dropdown__actions">
-                    <button className="filter-dropdown__reset" onClick={resetFilters}>Reset</button>
-                    <button className="filter-dropdown__filter" onClick={() => setFilterOpen(null)}>Filter</button>
+                    <button
+                      className="filter-dropdown__reset"
+                      onClick={resetFilters}
+                    >
+                      Reset
+                    </button>
+                    <button
+                      className="filter-dropdown__filter"
+                      onClick={() => setFilterOpen(null)}
+                    >
+                      Filter
+                    </button>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="users-table__header-cell" onClick={() => handleFilterClick('phone')}>
+            <div
+              className="users-table__header-cell"
+              onClick={() => handleFilterClick('phone')}
+            >
               <span>Phone Number</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" />
+                <path
+                  d="M4 6L8 10L12 6"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
               </svg>
               {filterOpen === 'phone' && (
-                <div className="filter-dropdown" onClick={(e) => e.stopPropagation()}>
+                <div
+                  className="filter-dropdown"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div className="filter-dropdown__group">
-                    <label className="filter-dropdown__label">Phone Number</label>
+                    <label className="filter-dropdown__label">
+                      Phone Number
+                    </label>
                     <input
                       className="filter-dropdown__input"
                       type="text"
                       placeholder="Phone Number"
                       value={filters.phoneNumber}
-                      onChange={(e) => setFilters({ ...filters, phoneNumber: e.target.value })}
+                      onChange={(e) =>
+                        setFilters({
+                          ...filters,
+                          phoneNumber: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   <div className="filter-dropdown__actions">
-                    <button className="filter-dropdown__reset" onClick={resetFilters}>Reset</button>
-                    <button className="filter-dropdown__filter" onClick={() => setFilterOpen(null)}>Filter</button>
+                    <button
+                      className="filter-dropdown__reset"
+                      onClick={resetFilters}
+                    >
+                      Reset
+                    </button>
+                    <button
+                      className="filter-dropdown__filter"
+                      onClick={() => setFilterOpen(null)}
+                    >
+                      Filter
+                    </button>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="users-table__header-cell" onClick={() => handleFilterClick('date')}>
+            <div
+              className="users-table__header-cell"
+              onClick={() => handleFilterClick('date')}
+            >
               <span>Date Joined</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" />
+                <path
+                  d="M4 6L8 10L12 6"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
               </svg>
               {filterOpen === 'date' && (
-                <div className="filter-dropdown" onClick={(e) => e.stopPropagation()}>
+                <div
+                  className="filter-dropdown"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div className="filter-dropdown__group">
                     <label className="filter-dropdown__label">Date</label>
                     <input
                       className="filter-dropdown__input"
                       type="date"
                       value={filters.date}
-                      onChange={(e) => setFilters({ ...filters, date: e.target.value })}
+                      onChange={(e) =>
+                        setFilters({ ...filters, date: e.target.value })
+                      }
                       title="date filter"
                     />
                   </div>
                   <div className="filter-dropdown__actions">
-                    <button className="filter-dropdown__reset" onClick={resetFilters}>Reset</button>
-                    <button className="filter-dropdown__filter" onClick={() => setFilterOpen(null)}>Filter</button>
+                    <button
+                      className="filter-dropdown__reset"
+                      onClick={resetFilters}
+                    >
+                      Reset
+                    </button>
+                    <button
+                      className="filter-dropdown__filter"
+                      onClick={() => setFilterOpen(null)}
+                    >
+                      Filter
+                    </button>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="users-table__header-cell" onClick={() => handleFilterClick('status')}>
+            <div
+              className="users-table__header-cell"
+              onClick={() => handleFilterClick('status')}
+            >
               <span>Status</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" />
+                <path
+                  d="M4 6L8 10L12 6"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
               </svg>
               {filterOpen === 'status' && (
-                <div className="filter-dropdown" onClick={(e) => e.stopPropagation()}>
+                <div
+                  className="filter-dropdown"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div className="filter-dropdown__group">
                     <label className="filter-dropdown__label">Status</label>
                     <select
                       className="filter-dropdown__select"
                       value={filters.status}
-                      onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+                      onChange={(e) =>
+                        setFilters({ ...filters, status: e.target.value })
+                      }
                       title="Status filter"
                     >
                       <option value="">Select</option>
@@ -358,14 +541,24 @@ const Users = () => {
                     </select>
                   </div>
                   <div className="filter-dropdown__actions">
-                    <button className="filter-dropdown__reset" onClick={resetFilters}>Reset</button>
-                    <button className="filter-dropdown__filter" onClick={() => setFilterOpen(null)}>Filter</button>
+                    <button
+                      className="filter-dropdown__reset"
+                      onClick={resetFilters}
+                    >
+                      Reset
+                    </button>
+                    <button
+                      className="filter-dropdown__filter"
+                      onClick={() => setFilterOpen(null)}
+                    >
+                      Filter
+                    </button>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="users-table__header-cell"></div>
+            <div className="users-table__header-cell" />
           </div>
 
           <div className="users-table__body">
@@ -375,9 +568,13 @@ const Users = () => {
                 <div className="users-table__cell">{user.username}</div>
                 <div className="users-table__cell">{user.email}</div>
                 <div className="users-table__cell">{user.phoneNumber}</div>
-                <div className="users-table__cell">{formatDate(user.dateJoined)}</div>
                 <div className="users-table__cell">
-                  <span className={`users-table__status users-table__status--${user.status.toLowerCase()}`}>
+                  {formatDate(user.dateJoined)}
+                </div>
+                <div className="users-table__cell">
+                  <span
+                    className={`users-table__status users-table__status--${user.status.toLowerCase()}`}
+                  >
                     {user.status}
                   </span>
                 </div>
@@ -387,11 +584,18 @@ const Users = () => {
                       className="users-table__menu-btn"
                       onClick={(e) => {
                         e.stopPropagation();
-                        setActionMenuOpen(actionMenuOpen === user.id ? null : user.id);
+                        setActionMenuOpen(
+                          actionMenuOpen === user.id ? null : user.id
+                        );
                       }}
                       aria-label="User actions menu"
                     >
-                      <svg width="4" height="18" viewBox="0 0 4 18" fill="none">
+                      <svg
+                        width="4"
+                        height="18"
+                        viewBox="0 0 4 18"
+                        fill="none"
+                      >
                         <circle cx="2" cy="2" r="2" fill="currentColor" />
                         <circle cx="2" cy="9" r="2" fill="currentColor" />
                         <circle cx="2" cy="16" r="2" fill="currentColor" />
@@ -399,22 +603,58 @@ const Users = () => {
                     </button>
                     {actionMenuOpen === user.id && (
                       <div className="users-table__menu">
-                        <Link to={`/dashboard/users/${user.id}`} onClick={() => setActionMenuOpen(null)}>
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M8 3C4.5 3 1.5 8 1.5 8C1.5 8 4.5 13 8 13C11.5 13 14.5 8 14.5 8C14.5 8 11.5 3 8 3Z" stroke="currentColor" strokeWidth="1.5" />
-                            <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.5" />
+                        <Link
+                          to={`/dashboard/users/${user.id}`}
+                          onClick={() => setActionMenuOpen(null)}
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                          >
+                            <path
+                              d="M8 3C4.5 3 1.5 8 1.5 8C1.5 8 4.5 13 8 13C11.5 13 14.5 8 14.5 8C14.5 8 11.5 3 8 3Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                            />
+                            <circle
+                              cx="8"
+                              cy="8"
+                              r="2"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                            />
                           </svg>
                           View Details
                         </Link>
                         <button onClick={() => setActionMenuOpen(null)}>
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M8 1V15M1 8H15" stroke="currentColor" strokeWidth="1.5" />
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                          >
+                            <path
+                              d="M8 1V15M1 8H15"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                            />
                           </svg>
                           Blacklist User
                         </button>
                         <button onClick={() => setActionMenuOpen(null)}>
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M3 8L7 12L13 4" stroke="currentColor" strokeWidth="1.5" />
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                          >
+                            <path
+                              d="M3 8L7 12L13 4"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                            />
                           </svg>
                           Activate User
                         </button>
@@ -422,7 +662,6 @@ const Users = () => {
                     )}
                   </div>
                 </div>
-                
               </div>
             ))}
           </div>
@@ -437,7 +676,8 @@ const Users = () => {
                 onChange={(e) => {
                   setPerPage(Number(e.target.value));
                   setCurrentPage(1);
-                }}>
+                }}
+              >
                 <option value={10}>10</option>
                 <option value={25}>25</option>
                 <option value={50}>50</option>
@@ -448,12 +688,24 @@ const Users = () => {
 
             <div className="users-table__page-buttons">
               <button
-                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                onClick={() =>
+                  setCurrentPage(Math.max(1, currentPage - 1))
+                }
                 disabled={currentPage === 1}
                 aria-label="Previous page"
               >
-                <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
-                  <path d="M6 1L1 6L6 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <svg
+                  width="7"
+                  height="12"
+                  viewBox="0 0 7 12"
+                  fill="none"
+                >
+                  <path
+                    d="M6 1L1 6L6 11"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
                 </svg>
               </button>
 
@@ -465,7 +717,9 @@ const Users = () => {
                     onClick={() => setCurrentPage(pageNum)}
                     className={currentPage === pageNum ? 'active' : ''}
                     aria-label={`Page ${pageNum}`}
-                    aria-current={currentPage === pageNum ? 'page' : undefined}
+                    aria-current={
+                      currentPage === pageNum ? 'page' : undefined
+                    }
                   >
                     {pageNum}
                   </button>
@@ -484,12 +738,24 @@ const Users = () => {
               )}
 
               <button
-                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                onClick={() =>
+                  setCurrentPage(Math.min(totalPages, currentPage + 1))
+                }
                 disabled={currentPage === totalPages}
                 aria-label="Next page"
               >
-                <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
-                  <path d="M1 1L6 6L1 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <svg
+                  width="7"
+                  height="12"
+                  viewBox="0 0 7 12"
+                  fill="none"
+                >
+                  <path
+                    d="M1 1L6 6L1 11"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
                 </svg>
               </button>
             </div>
@@ -501,6 +767,3 @@ const Users = () => {
 };
 
 export default Users;
-
-
-
