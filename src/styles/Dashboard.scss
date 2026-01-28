@@ -1,0 +1,300 @@
+@use './main' as *;
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background: $bg-light;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: $white;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.04);
+  z-index: 100;
+  
+  @include respond-to(tablet) {
+    height: 80px;
+  }
+  
+  &__content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    
+    @include respond-to(tablet) {
+      padding: 0 20px;
+    }
+  }
+  
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    
+    @include respond-to(tablet) {
+      gap: 20px;
+    }
+  }
+  
+  &__logo {
+    img {
+      width: 144px;
+      height: auto;
+      
+      @include respond-to(tablet) {
+        width: 120px;
+      }
+    }
+  }
+  
+  &__search {
+    position: relative;
+    
+    @include respond-to(tablet) {
+      display: none;
+    }
+    
+    input {
+      width: 400px;
+      height: 40px;
+      padding: 0 16px 0 40px;
+      border: 1px solid rgba(84, 95, 125, 0.14);
+      border-radius: 8px;
+      font-size: 14px;
+      
+      @include respond-to(desktop) {
+        width: 300px;
+      }
+      
+      &::placeholder {
+        color: rgba(84, 95, 125, 0.6);
+      }
+    }
+    
+    button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 40px;
+      width: 56px;
+      background: $primary-color;
+      border-radius: 0 8px 8px 0;
+      @include flex-center;
+      
+      svg {
+        width: 14px;
+        height: 14px;
+        stroke: $white;
+      }
+    }
+  }
+  
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    
+    @include respond-to(tablet) {
+      gap: 20px;
+    }
+  }
+  
+  &__docs {
+    font-size: 16px;
+    color: $text-light;
+    text-decoration: underline;
+    
+    @include respond-to(tablet) {
+      display: none;
+    }
+  }
+  
+  &__notification {
+    position: relative;
+    cursor: pointer;
+    
+    svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+  
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    
+    img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      
+      @include respond-to(tablet) {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    
+    span {
+      font-size: 16px;
+      font-weight: 500;
+      color: $text-light;
+      
+      @include respond-to(tablet) {
+        display: none;
+      }
+    }
+    
+    svg {
+      width: 8px;
+      height: 8px;
+      
+      @include respond-to(tablet) {
+        display: none;
+      }
+    }
+  }
+  
+  &__mobile-menu {
+    display: none;
+    cursor: pointer;
+    
+    @include respond-to(tablet) {
+      display: block;
+    }
+    
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 100px;
+  bottom: 0;
+  width: 283px;
+  background: $white;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.04);
+  overflow-y: auto;
+  z-index: 90;
+  transition: transform 0.3s;
+  
+  @include respond-to(tablet) {
+    top: 80px;
+    transform: translateX(-100%);
+    
+    &.open {
+      transform: translateX(0);
+    }
+  }
+  
+  &__content {
+    padding: 50px 30px;
+    
+    @include respond-to(tablet) {
+      padding: 30px 20px;
+    }
+  }
+  
+  &__switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 50px;
+    cursor: pointer;
+    
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    span {
+      font-size: 16px;
+      color: $text-light;
+    }
+  }
+  
+  &__nav {
+    list-style: none;
+  }
+  
+  &__section {
+    margin-bottom: 40px;
+  }
+  
+  &__section-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: $text-light;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    padding-left: 30px;
+  }
+  
+  &__item {
+    margin-bottom: 10px;
+    
+    a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 30px;
+      color: $text-light;
+      font-size: 16px;
+      transition: all 0.3s;
+      border-left: 3px solid transparent;
+      
+      &:hover,
+      &.active {
+        background: rgba(57, 205, 204, 0.06);
+        border-left-color: $primary-color;
+        
+        svg {
+          stroke: $primary-color;
+          fill: $primary-color;
+        }
+      }
+      
+      svg {
+        width: 16px;
+        height: 16px;
+        transition: all 0.3s;
+      }
+    }
+  }
+  
+  &__divider {
+    height: 1px;
+    background: rgba(84, 95, 125, 0.1);
+    margin: 30px 0;
+  }
+}
+
+.main-content {
+  margin-left: 283px;
+  margin-top: 100px;
+  flex: 1;
+  padding: 60px 60px 120px;
+  
+  @include respond-to(desktop) {
+    padding: 40px 40px 100px;
+  }
+  
+  @include respond-to(tablet) {
+    margin-left: 0;
+    margin-top: 80px;
+    padding: 30px 20px 80px;
+  }
+}
