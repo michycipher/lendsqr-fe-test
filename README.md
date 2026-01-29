@@ -3,9 +3,9 @@
 A pixel-perfect implementation of the Lendsqr admin dashboard built with React, TypeScript, and SCSS, featuring a professional JSON Server mock API with 500 Nigerian user records.
 
 ## 🚀 Live Demo
-- **Frontend**: https://your-name-lendsqr-fe-test.vercel.app
+- **Frontend**: https://michelle-utomi-lendsqr-fe-test.vercel.app
 - **Mock API**: https://your-name-lendsqr-api.onrender.com
-- **Repository**: https://github.com/yourusername/lendsqr-fe-test
+- **Repository**: https://github.com/michycipher/lendsqr-fe-test
 
 ## 📋 Test Credentials
 ```
