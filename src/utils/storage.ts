@@ -1,7 +1,3 @@
-/**
- * LocalStorage utility for managing app data
- */
-
 const STORAGE_KEYS = {
   AUTH_TOKEN: 'lendsqr_auth_token',
   AUTH_USER: 'lendsqr_auth_user',
@@ -10,23 +6,14 @@ const STORAGE_KEYS = {
 } as const;
 
 export class LocalStore {
-  /**
-   * Get authentication token
-   */
   static getToken(): string | null {
     return localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
   }
 
-  /**
-   * Set authentication token
-   */
   static setToken(token: string): void {
     localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, token);
   }
 
-  /**
-   * Get authentication status
-   */
   static getAuthStatus(): boolean {
     return !!this.getToken();
   }
