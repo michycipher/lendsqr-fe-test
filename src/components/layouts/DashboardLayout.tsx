@@ -1,11 +1,12 @@
-import { type ReactNode, useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { logout, getCurrentUser } from "../services/auth";
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation, Outlet } from 'react-router-dom';
+import { logout, getCurrentUser } from '../../services/auth';
+import { routePaths } from '../../routes/route-paths';
 import { 
   GoBell, 
   GoSearch, 
   GoChevronDown 
-} from "react-icons/go";
+} from 'react-icons/go';
 import { 
   FiUsers, 
   FiShield, 
@@ -17,14 +18,10 @@ import {
   FiSettings,
   FiLogOut,
   FiMenu 
-} from "react-icons/fi";
-import "../styles/Dashboard.scss";
+} from 'react-icons/fi';
+import '../../styles/Dashboard.scss';
 
-interface DashboardLayoutProps {
-  children: ReactNode;
-}
-
-const DashboardLayout = ({ children }: DashboardLayoutProps) => {
+const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,7 +29,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
   const handleLogout = () => {
     logout();
-    navigate("/");
+    navigate(routePaths.auth.login);
   };
 
   const isActive = (path: string) => 
@@ -73,8 +70,8 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               <span className="notification-badge">3</span>
             </div>
             <div className="header__user">
-              <img src="/user-avatar.svg" alt={user?.name || "User"} />
-              <span>{user?.name || "Adedeji"}</span>
+              <img src="/user-avatar.svg" alt={user?.name || 'User'} />
+              <span>{user?.name || 'Adedeji'}</span>
               <GoChevronDown />
             </div>
             <button 
@@ -90,11 +87,11 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
       {/* Mobile overlay */}
       <div 
-        className={`sidebar-overlay ${sidebarOpen ? "open" : ""}`}
+        className={`sidebar-overlay ${sidebarOpen ? 'open' : ''}`}
         onClick={() => setSidebarOpen(false)}
       />
 
-      <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+      <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar__content">
           <div className="sidebar__switch">
             <FiSettings />
@@ -106,8 +103,8 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             <div className="sidebar__section">
               <div className="sidebar__item">
                 <Link 
-                  to="/dashboard" 
-                  className={isActive("/dashboard") ? "active" : ""}
+                  to={routePaths.dashboard.home}
+                  className={isActive(routePaths.dashboard.home) && !isActive('/users') ? 'active' : ''}
                 >
                   <FiBarChart />
                   Dashboard
@@ -119,51 +116,72 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               <div className="sidebar__section-title">Customers</div>
               <div className="sidebar__item">
                 <Link
-                  to="/dashboard/users"
-                  className={isActive("/dashboard/users") ? "active" : ""}
+                  to={routePaths.dashboard.users}
+                  className={isActive(routePaths.dashboard.users) ? 'active' : ''}
                 >
                   <FiUsers />
                   Users
                 </Link>
               </div>
               <div className="sidebar__item">
-                <Link to="/dashboard" className={isActive("/dashboard/guarantors") ? "active" : ""}>
+                <Link 
+                  to={routePaths.dashboard.guarantors}
+                  className={isActive(routePaths.dashboard.guarantors) ? 'active' : ''}
+                >
                   <FiShield />
                   Guarantors
                 </Link>
               </div>
               <div className="sidebar__item">
-                <Link to="/dashboard" className={isActive("/dashboard/loans") ? "active" : ""}>
+                <Link 
+                  to={routePaths.dashboard.loans}
+                  className={isActive(routePaths.dashboard.loans) ? 'active' : ''}
+                >
                   <FiDollarSign />
                   Loans
                 </Link>
               </div>
               <div className="sidebar__item">
-                <Link to="/dashboard" className={isActive("/dashboard/decision-models") ? "active" : ""}>
+                <Link 
+                  to={routePaths.dashboard.decisionModels}
+                  className={isActive(routePaths.dashboard.decisionModels) ? 'active' : ''}
+                >
                   <FiBarChart />
                   Decision Models
                 </Link>
               </div>
               <div className="sidebar__item">
-                <Link to="/dashboard" className={isActive("/dashboard/savings") ? "active" : ""}>
+                <Link 
+                  to={routePaths.dashboard.savings}
+                  className={isActive(routePaths.dashboard.savings) ? 'active' : ''}
+                >
                   <FiCreditCard />
                   Savings
                 </Link>
               </div>
               <div className="sidebar__item">
-                <Link to="/dashboard" className={isActive("/dashboard/loan-requests") ? "active" : ""}>
+                <Link 
+                  to={routePaths.dashboard.loanRequests}
+                  className={isActive(routePaths.dashboard.loanRequests) ? 'active' : ''}
+                >
                   <FiFileText />
                   Loan Requests
                 </Link>
               </div>
               <div className="sidebar__item">
-                <Link to="/dashboard" className={isActive("/dashboard/whitelist") ? "active" : ""}>
+                <Link 
+                  to={routePaths.dashboard.whitelist}
+                  className={isActive(routePaths.dashboard.whitelist) ? 'active' : ''}
+                >
                   <FiStar />
                   Whitelist
                 </Link>
               </div>
               <div className="sidebar__item">
-                <Link to="/dashboard" className={isActive("/dashboard/karma") ? "active" : ""}>
+                <Link 
+                  to={routePaths.dashboard.karma}
+                  className={isActive(routePaths.dashboard.karma) ? 'active' : ''}
+                >
                   <FiStar />
                   Karma
                 </Link>
@@ -175,7 +193,10 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             <div className="sidebar__section">
               <div className="sidebar__section-title">Settings</div>
               <div className="sidebar__item">
-                <Link to="/dashboard" className={isActive("/dashboard/preferences") ? "active" : ""}>
+                <Link 
+                  to={routePaths.dashboard.preferences}
+                  className={isActive(routePaths.dashboard.preferences) ? 'active' : ''}
+                >
                   <FiSettings />
                   Preferences
                 </Link>
@@ -191,7 +212,9 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         </div>
       </aside>
 
-      <main className="main-content">{children}</main>
+      <main className="main-content">
+        <Outlet />
+      </main>
     </div>
   );
 };

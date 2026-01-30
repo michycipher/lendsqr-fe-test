@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../services/auth';
-import '../styles/Login.scss';
+import { login } from '../../services/auth';
+import { routePaths } from '../../routes/route-paths';
+import '../../styles/Login.scss';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ const Login = () => {
 
     try {
       await login({ email, password });
-      navigate('/dashboard/users');
+      navigate(routePaths.dashboard.users);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
     } finally {

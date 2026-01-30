@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getUsers, getDashboardStats } from '../services/api';
-import type { User, DashboardStats } from '../types';
-import '../styles/User.scss';
+import { getUsers, getDashboardStats } from '../../services/api';
+import type { User, DashboardStats } from '../../types';
+// import { routePaths } from '../../routes/route-paths';
+import '../../styles/User.scss';
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);

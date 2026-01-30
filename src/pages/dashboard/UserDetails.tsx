@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getUserById } from '../services/api';
-import type { User } from '../types';
-import '../styles/UserDetails.scss';
+import { getUserById } from '../../services/api';
+import type { User } from '../../types';
+import { routePaths } from '../../routes/route-paths';
+import '../../styles/UserDetails.scss';
 
 const UserDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,11 +25,11 @@ const UserDetails = () => {
       if (userData) {
         setUser(userData);
       } else {
-        navigate('/dashboard/users');
+        navigate(routePaths.dashboard.users);
       }
     } catch (error) {
       console.error('Error loading user:', error);
-      navigate('/dashboard/users');
+      navigate(routePaths.dashboard.users);
     } finally {
       setLoading(false);
     }
