@@ -1,11 +1,11 @@
 import type { User } from '../types/index';
 import { LocalStore } from '../utils/storage';
 
-// const API_BASE_URL = process.env.NODE_ENV === 'production'
-//   ? 'https://michelle-utomi-lendsqr-fe-test.onrender.com' 
-//   : 'http://localhost:3001';
+const API_BASE_URL = process.env.NODE_ENV === 'production'
+  ? 'https://michelle-utomi-lendsqr-fe-test.onrender.com' 
+  : 'http://localhost:3001';
 
-const API_BASE_URL = import.meta.env.VITE_APP_API_URL;
+// const API_BASE_URL = import.meta.env.VITE_APP_API_URL;
 
 export const getUsers = async (): Promise<User[]> => {
   try {
