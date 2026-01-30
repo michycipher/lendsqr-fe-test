@@ -39,40 +39,71 @@ Password: password
 ```
 lendsqr-fe-test/
 ├── scripts/
-│   └── generate-db.js    # Generates 500 mock users for JSON Server
+│   └── generate-db.js
 ├── src/
-│   ├── components/       # Reusable components
-│   │   └── DashboardLayout.tsx
-│   ├── pages/           # Page components
-│   │   ├── Login.tsx
-│   │   ├── Users.tsx
-│   │   └── UserDetails.tsx
-│   ├── services/        # API and auth services
-│   │   ├── api.ts       # JSON Server integration
+│   ├── components/
+│   │   ├── layouts/
+│   │   │   └── DashboardLayout.tsx
+│   │   └── ProtectedRoute.tsx
+│   ├── pages/
+│   │   ├── auth/
+│   │   │   └── Login.tsx
+│   │   └── dashboard/
+│   │       ├── Users.tsx
+│   │       └── UserDetails.tsx
+│   ├── routes/
+│   │   ├── index.tsx
+│   │   └── route-paths.ts
+│   ├── services/
+│   │   ├── api.ts
 │   │   └── auth.ts
-│   ├── styles/          # SCSS stylesheets
+│   ├── styles/
 │   │   ├── main.scss
 │   │   ├── Login.scss
 │   │   ├── Dashboard.scss
-│   │   ├── Users.scss
+│   │   ├── User.scss
 │   │   └── UserDetails.scss
-│   ├── types/           # TypeScript type definitions
+│   ├── types/
 │   │   └── index.ts
-│   ├── utils/           # Utility functions and constants
-│   │   ├── constants.ts # Nigerian names, banks, etc.
-│   │   └── helpers.ts
-│   ├── tests/           # Unit tests
-│   │   ├── setup.ts
-│   │   └── Login.test.tsx
-│   ├── App.tsx          # Main app component
-│   └── main.tsx         # App entry point
-├── db.json              # Mock API data (500 users)
-├── server.js            # JSON Server configuration
-├── package.json
+│   ├── utils/
+│   │   ├── constants.ts
+│   │   ├── helpers.ts
+│   │   └── storage.ts
+|   |__ tests/
+│   |    ├── setup.ts
+│   │    └── Login.test.tsx
+│   |    
+│   |  
+│   ├── App.tsx
+│   └── main.tsx
+├── db.json
+├── server.js
+└── package.json
 ├── tsconfig.json
 ├── vite.config.ts
 └── vitest.config.ts
 ```
+
+## Project Architecture
+
+This project follows a **feature-based layered architecture**:
+
+### Structure Overview
+```
+src/
+├── pages/          # Feature-based page components
+├── components/     # Reusable UI components
+├── services/       # Business logic & API calls
+├── utils/          # Helper functions & constants
+├── types/          # TypeScript type definitions
+└── routes/         # Application routing
+```
+
+### Design Principles
+- **Separation of Concerns**: Clear boundaries between UI, logic, and data
+- **Single Responsibility**: Each file has one clear purpose
+- **DRY (Don't Repeat Yourself)**: Shared utilities prevent code duplication
+- **Type Safety**: TypeScript interfaces ensure data contracts
 
 ## 🛠️ Technologies Used
 
