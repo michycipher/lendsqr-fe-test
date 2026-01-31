@@ -4,7 +4,7 @@ A pixel-perfect implementation of the Lendsqr admin dashboard built with React, 
 
 ## 🚀 Live Demo
 - **Frontend**: https://michelle-utomi-lendsqr-fe-test.vercel.app
-- **Mock API**: https://your-name-lendsqr-api.onrender.com
+- **Mock API**: https://michelle-utomi-lendsqr-fe-test.onrender.com
 - **Repository**: https://github.com/michycipher/lendsqr-fe-test
 
 ## 📋 Test Credentials
@@ -130,7 +130,7 @@ The assessment requires pulling data from a mock API. I chose **JSON Server** be
 ### API Endpoints
 
 **Base URL (Local)**: `http://localhost:3001`  
-**Base URL (Production)**: `https://your-name-lendsqr-api.onrender.com`
+**Base URL (Production)**: `https://michelle-utomi-lendsqr-fe-test.onrender.com`
 
 Available endpoints:
 ```
@@ -205,7 +205,7 @@ The application implements a smart caching strategy:
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/lendsqr-fe-test.git
+git clone https://github.com/michycipher/lendsqr-fe-test.git
 cd lendsqr-fe-test
 ```
 
@@ -322,13 +322,13 @@ The application is fully responsive across all device sizes:
 
 ### Running Tests
 ```bash
-# Run all tests
+# Run all tests once
 npm test
 
 # Run tests in watch mode
 npm run test:watch
 
-# Generate coverage report
+# Run tests with coverage report
 npm run test:coverage
 ```
 
@@ -367,10 +367,10 @@ vercel --prod
 3. **Set environment variable**
 ```bash
 # In Vercel dashboard, add:
-VITE_APP_API_URL=https://your-name-lendsqr-api.onrender.com
+VITE_APP_API_URL=https://michelle-utomi-lendsqr-fe-test.onrender.com
 ```
 
-Your frontend will be at: `https://your-name-lendsqr-fe-test.vercel.app`
+Your frontend will be at: `https://michelle-utomi-lendsqr-fe-test.vercel.app/`
 
 ### Deploy API to Render.com
 
@@ -401,8 +401,8 @@ git push
 5. **Test deployed API**
 ```bash
 # Visit in browser
-https://your-name-lendsqr-api.onrender.com/health
-https://your-name-lendsqr-api.onrender.com/users
+https://michelle-utomi-lendsqr-fe-test.onrender.com/health
+https://michelle-utomi-lendsqr-fe-test.onrender.com/users
 ```
 
 6. **Update frontend API URL**
@@ -410,7 +410,7 @@ https://your-name-lendsqr-api.onrender.com/users
 In `src/services/api.ts`, update:
 ```typescript
 const API_BASE_URL = process.env.NODE_ENV === 'production'
-  ? 'https://your-name-lendsqr-api.onrender.com' // YOUR ACTUAL URL
+  ? 'https://michelle-utomi-lendsqr-fe-test.onrender.com'
   : 'http://localhost:3001';
 ```
 
@@ -524,14 +524,14 @@ npm run format           # Format with Prettier
 - Simple authentication (no JWT tokens, password hashing)
 - No real-time updates (would need WebSockets)
 
-### Future Improvements
-- [ ] Add billing/invoice management
+<!-- ### Future Improvements -->
+<!-- - [ ] Add billing/invoice management
 - [ ] Implement E2E tests with Playwright
 - [ ] Add dark mode support
 - [ ] Implement user CRUD operations
 - [ ] Add export to CSV functionality
 - [ ] Implement advanced search
-- [ ] Add user activity logs
+- [ ] Add user activity logs -->
 
 ## 📚 Additional Documentation
 

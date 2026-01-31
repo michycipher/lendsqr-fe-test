@@ -1,5 +1,7 @@
 import { BrowserRouter, useRoutes } from 'react-router-dom';
 import { routes } from './routes';
+import { ToastProvider } from './providers/ToastProvider';
+import ToastContainer from './components/Toast/ToastContainer';
 import './styles/main.scss';
 
 function AppRoutes() {
@@ -9,7 +11,10 @@ function AppRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <AppRoutes />
+      <ToastProvider>
+        <AppRoutes />
+        <ToastContainer />
+      </ToastProvider>
     </BrowserRouter>
   );
 }

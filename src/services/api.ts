@@ -54,9 +54,6 @@ export const getUsers = async (): Promise<User[]> => {
   }
 };
 
-/**
- * Fetch single user by ID
- */
 export const getUserById = async (id: string): Promise<User | null> => {
   try {
     const cachedUser = localStorage.getItem(`user_${id}`);
@@ -65,7 +62,7 @@ export const getUserById = async (id: string): Promise<User | null> => {
       return JSON.parse(cachedUser);
     }
 
-    console.log(`📡 Fetching user ${id} from JSON Server...`);
+    console.log(`Fetching user ${id} from JSON Server...`);
     const response = await fetch(`${API_BASE_URL}/users/${id}`);
 
     if (response.ok) {
@@ -88,9 +85,6 @@ export const getUserById = async (id: string): Promise<User | null> => {
   }
 };
 
-/**
- * Get dashboard statistics
- */
 export const getDashboardStats = async () => {
   try {
     const users = await getUsers();
@@ -113,9 +107,7 @@ export const getDashboardStats = async () => {
   }
 };
 
-/**
- * Clear all caches
- */
+  // Clear all caches
 export const clearCache = () => {
   LocalStore.clearUsersCache();
   
@@ -126,16 +118,15 @@ export const clearCache = () => {
     }
   });
 
-  console.log('🗑️ All caches cleared');
+  console.log('All caches cleared');
 };
 
-/**
- * Force refresh data from API
- */
 export const refreshUsers = async (): Promise<User[]> => {
   clearCache();
   return await getUsers();
 };
+
+
 
 // import type { User } from '../types/index';
 
